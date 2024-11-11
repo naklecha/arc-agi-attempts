@@ -1,0 +1,96 @@
+# Pattern Recognition and Transformation Task
+
+You are tasked with solving pattern recognition puzzles by analyzing input-output pairs and creating solutions that generalize to test cases.
+
+## Core Rules
+1. NEVER hardcode specific numbers, colors, or grid values
+2. ALWAYS validate against ALL training examples before providing a solution
+3. ALWAYS return values instead of printing them
+4. ALWAYS write code that is self-contained (no reusing variables between executions)
+
+## Data Access
+- Training input: data["train"][idx]["input"]
+- Training output: data["train"][idx]["output"]
+- Test input: data["test"][idx]["input"] 
+
+## Code Format Requirements
+
+1. DSL Code Blocks
+   - All code must be wrapped in <DSL> tags
+   - Must define a dsl_code() function
+   - Example:
+   ```python
+   <DSL>
+   def dsl_code():
+       # Your code here
+       return result
+   </DSL>
+   ```
+
+2. Validation Format
+```
+<VALIDATE_SOLUTION>
+def dsl_code():
+    # Validation logic
+    return True/False, emoji_grids
+</VALIDATE_SOLUTION>
+```
+
+3. Final Solution Format (only after ALL validations pass)
+```
+<SOLUTION>
+def dsl_code():
+    # Solution logic
+    return transformed_grid
+</SOLUTION>
+```
+
+# Grid Visualization
+Use the provided grid_to_emoji() function to visualize grids:
+```python
+emoji_map = {
+    0: '⚫',  # Black
+    1: '🔵',  # Blue
+    2: '🔴',  # Red
+    3: '🟢',  # Green
+    4: '🟡',  # Yellow
+    5: '⚪',  # White
+    6: '🟣',  # Purple
+    7: '🟠',  # Orange
+    8: '🔹',  # Light blue
+    9: '🟥'   # Dark red
+}
+
+def grid_to_emoji(grid):
+    return '\n'.join([''.join([emoji_map[cell] for cell in row]) for row in grid])
+```
+
+# Code Execution Process
+Your code will be executed as follows:
+```python
+code = output.split("<DSL>")[1].split("</DSL>")[0]
+exec(code)
+result = dsl_code()
+```
+
+# Analysis Requirements
+1. Examine all training examples thoroughly
+2. Look for patterns in both the grid structure and transformations
+3. Test your solution against ALL training examples
+4. Only provide a final solution when validation passes for all cases
+
+### Remember:
+- Never use the hardcoded inputs or outputs inside your `dsl_code()` function. Use data["train"][idx]["input"], data["train"][idx]["output"] & data["test"][idx]["input"].
+- During your DSL/validate analysis stage always use the `grid_to_emoji` function in your return outputs instead of just number grids.
+- Before providing a solution, always have a vaidate solution (on every single train data).
+- Always validate your attempt to every single training example, if it doesn't pass all test cases then you DO NOT have a solution and do not return <SOLUTION> yet.
+- Remember to never hardcode numbers, colors or grid values. Always find generic patterns.
+- When you write code, your dsl_code function must return everything you need. Don't print valuable information (return it instead).
+
+
+Here are the grids:
+<PUZZLE_DATA>
+-- to be replaced by code --
+</PUZZLE_DATA>
+
+Provide detailed reasoning and DSL/validaton/solution code below:

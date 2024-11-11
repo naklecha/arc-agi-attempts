@@ -1,0 +1,40 @@
+Your task is to find the transformation that maps the input grid to the output grid.
+
+# DSL and code execution rules:
+1. Every single code code block that you provide me with will be executed using Python's `exec` function.
+2. The code block you write must be between <DSL> always and must always a function called `solve(grid)` where `grid` is a 2d matrix.
+3. My code provided below must work for all outputs with DSL code that you generate. Here is my internal code of how I process your outputs:
+```Python
+string_output_from_claude = <the full output you generate> # full output where you generated DSL code
+code = string_output_from_claude.split("<DSL>")[1].split("</DSL>")[0] # extract just the code
+exec(code) # run exec on your code to use the solve function that you wrote
+output = solve(grid) # this function must have been written by you, and created when i run exec
+```
+
+IMPORTANT RULES:
+- Always visualize grids using the emoji_map instead of working with raw coordinates: {
+    0: '⚫',  # Black
+    1: '🔵',  # Blue
+    2: '🔴',  # Red
+    3: '🟢',  # Green
+    4: '🟡',  # Yellow
+    5: '⚪',  # Light gray (using white circle as closest match)
+    6: '🟣',  # Purple (closest match for pink)
+    7: '🟠',  # Orange
+    8: '🔹',  # Light blue (using small blue diamond as closest match)
+    9: '🟥',  # Dark red (using red square as closest match)
+}
+```python
+emoji_map = {
+    0: '⚫', 1: '🔵', 2: '🔴', 3: '🟢', 4: '🟡',
+    5: '⚪', 6: '🟣', 7: '🟠', 8: '🔹', 9: '🟥'
+}
+
+def grid_to_emoji(grid):
+    return '\n'.join([''.join([emoji_map[cell] for cell in row]) for row in grid])
+```
+
+Here are the grids:
+{add_to_prompt}
+
+Provide reasoning and solution code below:
