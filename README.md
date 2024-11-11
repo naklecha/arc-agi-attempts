@@ -5,23 +5,23 @@ In this repository I have code and brief explanations of my attempts at the ARC-
 ## attempts
 
 ### 1. direct grid solution
-- Located in: `direct-arc-solution.ipynb`
+- Located in: [`direct-arc-solution.ipynb`](direct-arc-solution.ipynb)
 - Description: A pattern-matching approach where Claude analyzes the grids and makes direct predictions
 - Key features:
-    - Takes input/output grids displayed with emojis
-    - Analyzes patterns through a thought process
-    - Makes predictions without writing explicit code
-    - Uses XML tags like `<thought>`, `<prediction>`, `<criticism>` to structure reasoning
-    - Provides final predictions in emoji grid format
+  - Takes input/output grids displayed with emojis
+  - Analyzes patterns through a thought process
+  - Makes predictions without writing explicit code
+  - Uses XML tags like `<thought>`, `<prediction>`, `<criticism>` to structure reasoning
+  - Provides final predictions in emoji grid format
 
 ### 2. direct code solution
-- Located in: `direct-code-arc-solution.ipynb`
+- Located in: [`direct-code-arc-solution.ipynb`](direct-code-arc-solution.ipynb)
 - Description: A straightforward approach where Claude directly attempts to write code to solve the puzzle after analyzing the patterns
 - Uses single-shot code generation with a customized prompt template
 - Validates solutions against test cases
 
 ### 3. iterative code solution
-- Located in: `iterative-code-arc-solution.ipynb`
+- Located in: [`iterative-code-arc-solution.ipynb`](iterative-code-arc-solution.ipynb)
 - Description: An iterative approach where Claude gradually develops a solution through multiple steps
 - Features:
   - Breaks down problem analysis into smaller steps
@@ -29,13 +29,13 @@ In this repository I have code and brief explanations of my attempts at the ARC-
   - Allows for refinement and correction of hypotheses
 
 ### 4. information bank based solution
-- Located in: `bank-code-arc-solution.ipynb`
+- Located in: [`bank-code-arc-solution.ipynb`](bank-code-arc-solution.ipynb)
 - Description: A structured approach that maintains a "bank" of collected knowledge and explorations
 - Key components:
   - COLLECT phase: Gathers basic information about patterns
   - EXPLORE phase: Tests specific hypotheses about transformations
   - Uses systematic validation before proposing final solutions
-- Benifit of this approch is, context lengths are shorted because we only use the information bank
+- Benefit of this approach is, context lengths are shorter because we only use the information bank
 
 ## file structure
 
@@ -50,7 +50,7 @@ In this repository I have code and brief explanations of my attempts at the ARC-
 │   ├── iterative_2_prompt.txt
 │   └── bank_prompt.txt
 └── attempts/
-    └── [generated attempt logs]
+  └── [generated attempt logs]
 ```
 
 ## setup
