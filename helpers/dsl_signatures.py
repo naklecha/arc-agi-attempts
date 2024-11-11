@@ -1,6 +1,49 @@
-Your DSL library function signatues:
+from typing import List, Union, Tuple, Any, Container, Callable, FrozenSet, Iterable
+Boolean = bool
+Integer = int
+IntegerIterable = Tuple[Integer, Integer]
+Numerical = Union[Integer, IntegerIterable]
+IntegerSet = FrozenSet[Integer]
+Grid = Iterable[Iterable[Integer]]
+Cell = Tuple[Integer, IntegerIterable]
+Object = FrozenSet[Cell]
+Objects = FrozenSet[Object]
+Indices = FrozenSet[IntegerIterable]
+IndicesSet = FrozenSet[Indices]
+Patch = Union[Object, Indices]
+Element = Union[Object, Grid]
+Piece = Union[Grid, Patch]
+IterableIterable = Iterable[Iterable]
+ContainerContainer = Container[Container]
+ZERO = 0
+ONE = 1
+TWO = 2
+THREE = 3
+FOUR = 4
+FIVE = 5
+SIX = 6
+SEVEN = 7
+EIGHT = 8
+NINE = 9
+TEN = 10
+F = False
+T = True
+NEG_ONE = -1
+ORIGIN = (0, 0)
+UNITY = (1, 1)
+DOWN = (1, 0)
+RIGHT = (0, 1)
+UP = (-1, 0)
+LEFT = (0, -1)
+NEG_TWO = -2
+NEG_UNITY = (-1, -1)
+UP_RIGHT = (-1, 1)
+DOWN_LEFT = (1, -1)
+ZERO_BY_TWO = (0, 2)
+TWO_BY_ZERO = (2, 0)
+TWO_BY_TWO = (2, 2)
+THREE_BY_THREE = (3, 3)
 
-```python
 def identity(x: Any) -> Any:
     """ identity function  """
 
@@ -480,69 +523,3 @@ def hperiod(obj: Object) -> Integer:
 
 def vperiod(obj: Object) -> Integer:
     """ vertical periodicity  """
-```
-
-Your job is to solve a pattern recognition and transformation puzzle. Here is everything you need to know:
-1. You can access the data and run dsl operations using a list of input-output grids from trianing data using data["train"][idx]["input"] and data["train"][idx]["output"], where idx is the index of the training data.
-2. You can get the test input data using data["test"][idx]["input"] where idx is the index of the test data.
-3. Validate your solution always using multiple train examples (use len to check length) before a final code solution to the test data. Provide validation code in the format <VALIDATE_SOLUTION> -- dsl_code() function defined here, that returns True/False for each train data along with emoji grids for each, so you can improve your answer if wrong. -- </VALIDATE_SOLUTION>. 
-4. When you want to run a dsl code snippet wrap your code around <DSL> and </DSL> so I can run it programatically.
-5. When you have a final solution (only provide solution if all train data validations are True) after checking your answer on all train examples, wrap your final code solution around <SOLUTION> and </SOLUTION>.
-6. Use a emoji mapping always to visualize the grid using text: {
-    0: '⚫',  # Black
-    1: '🔵',  # Blue
-    2: '🔴',  # Red
-    3: '🟢',  # Green
-    4: '🟡',  # Yellow
-    5: '⚪',  # Light gray (using white circle as closest match)
-    6: '🟣',  # Purple (closest match for pink)
-    7: '🟠',  # Orange
-    8: '🔹',  # Light blue (using small blue diamond as closest match)
-    9: '🟥',  # Dark red (using red square as closest match)
-}
-```python
-emoji_map = {
-    0: '⚫', 1: '🔵', 2: '🔴', 3: '🟢', 4: '🟡',
-    5: '⚪', 6: '🟣', 7: '🟠', 8: '🔹', 9: '🟥'
-}
-
-def grid_to_emoji(grid):
-    return '\n'.join([''.join([emoji_map[cell] for cell in row]) for row in grid])
-```
-7. Reminder: Always provide DSL code execusions in the format code_output=<your function call>, i will run and eval on your code and provide you with the output of code_output.
-8. Ensure your DSL code is always atomic and old varibles and code can't be used. YOU CANT REUSE OLD VARIABLES ALWAYS REDEFINE EVEYTHING.
-9. Always define a dsl_code() function in your code that returns the output grid for solution or useful information for exploration.
-10. Think creativly and always look at the patterns or ideas from the image as well.
-11. Always use the grid function `grid_to_emoji` to visualize grids and sub grids. Especially during explorations.
-12. Always validate your attempt to every single training example, if it doesn't pass all test cases then you DO NOT have a solution and do not return <SOLUTION> yet.
-
-
-
-
-# DSL and code execution rules:
-1. Every single code code block that you provide me with will be executed using Python's `exec` function.
-2. The code block you write must be between <DSL> always and must always a function called `dsl_code()`
-3. My code provided below must work for all outputs with DSL code that you generate. Here is my internal code of how I process your outputs:
-```Python
-string_output_from_claude = <the full output you generate> # full output where you generated DSL code
-code = string_output_from_claude.split("<DSL>")[1].split("</DSL>")[0] # extract just the code
-exec(code) # run exec on your code to use the dsl_code function that you wrote
-output = dsl_code() # this function must have been written by you, and created when i run exec
-```
-4. Never use the hardcoded inputs or outputs inside your `dsl_code()` function. Use data["train"][idx]["input"], data["train"][idx]["output"] & data["test"][idx]["input"].
-5. During your DSL analysis stage always use the `grid_to_emoji` function in your return outputs instead of just number grids.
-6. Before providing a solution, always have a vaidate solution (on every single train data).
-7. Always validate your attempt to every single training example, if it doesn't pass all test cases then you DO NOT have a solution and do not return <SOLUTION> yet.
-8. Remember to never hardcode numbers, colors or grid values. Always find generic patterns.
-9. When you write code, your dsl_code function must return everything you need. Don't print valuable information (return it instead).
-10. Feel free to use the DSL library to write all your code.
-
-Here are the grids:
-
-Here are the grids:
-<PUZZLE_DATA>
--- to be replaced by code --
-</PUZZLE_DATA>
-
-Provide detailed reasoning and DSL/solution code below:
-

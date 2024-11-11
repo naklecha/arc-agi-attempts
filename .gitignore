@@ -1,3 +1,4 @@
 .env
 venv/
 attempts/*
+__pycache__
