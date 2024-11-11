@@ -4,9 +4,9 @@ In this repository I have code and brief explanations of my attempts at the ARC-
 
 <img src="extra/image.png" height="500"/>
 
-## shout outs before i get started
-- This repository contains a [patterns](patterns) folder with a dataset where each training example example is prepared for training (training todo, but use cases explained below). This dataset was generated using [Glaive.ai](glaive.ai)'s synthetic data platform.
-- I spent so much time tuning the prompts, trying different methods and a bunch of stuff that didn't make to into this repository. I'm going to shout out [Glaive.ai](glaive.ai) again here for sponsoring credits, I work at glaive so please bare with my biased shout outs!!! But if you or your company are in need for high quality synthetic datasets hmu or sign up and send us feedback :)
+## shoutouts before i get started
+- This repository contains a [patterns](patterns) folder with a dataset where each training example is prepared for training (training todo, but use cases explained below). This dataset was generated using [Glaive.ai](glaive.ai)'s synthetic data platform.
+- I spent so much time tuning the prompts, trying different methods and a bunch of stuff that didn't make it into this repository. I'm going to shout out [Glaive.ai](glaive.ai) again here for sponsoring a bunch of Claude and OpenRouter credits for me, I work at Glaive so please bear with my biased shoutouts!!! But if you or your company are in need for high-quality synthetic datasets hmu or sign up and send us feedback :)
 - (unbiased shoutout) Finally, I made heavy use of [Michael](https://x.com/bayesilicon)'s dsl.py file and his Github repository [michaelhodel/arc-dsl](https://github.com/michaelhodel/arc-dsl/blob/main/dsl.py). I would recommend checking it out.
 
 ## attempts
