@@ -211,7 +211,7 @@ def dedupe(
     iterable: Iterable
 ) -> Iterable:
     """ remove duplicates """
-    return Tuple(e for i, e in enumerate(iterable) if iterable.index(e) == i)
+    return tuple(e for i, e in enumerate(iterable) if iterable.index(e) == i)
 
 
 def order(
@@ -219,7 +219,7 @@ def order(
     compfunc: Callable
 ) -> Iterable:
     """ order container by custom key """
-    return Tuple(sorted(container, key=compfunc))
+    return tuple(sorted(container, key=compfunc))
 
 
 def repeat(
@@ -227,7 +227,7 @@ def repeat(
     num: Integer
 ) -> Iterable:
     """ repetition of item within vector """
-    return Tuple(item for i in range(num))
+    return tuple(item for i in range(num))
 
 
 def greater(
@@ -422,7 +422,7 @@ def toIterable(
     container: FrozenSet
 ) -> Iterable:
     """ conversion to Iterable """
-    return Tuple(container)
+    return tuple(container)
 
 
 def first(
@@ -469,7 +469,7 @@ def interval(
     step: Integer
 ) -> Iterable:
     """ range """
-    return Tuple(range(start, stop, step))
+    return tuple(range(start, stop, step))
 
 
 def asIterable(
@@ -493,7 +493,7 @@ def pair(
     b: Iterable
 ) -> IterableIterable:
     """ zipping of two Iterables """
-    return Tuple(zip(a, b))
+    return tuple(zip(a, b))
 
 
 def branch(
@@ -607,7 +607,7 @@ def papply(
     b: Iterable
 ) -> Iterable:
     """ apply function on two vectors """
-    return Tuple(function(i, j) for i, j in zip(a, b))
+    return tuple(function(i, j) for i, j in zip(a, b))
 
 
 def mpapply(
@@ -725,28 +725,28 @@ def ulcorner(
     patch: Patch
 ) -> IntegerIterable:
     """ index of upper left corner """
-    return Tuple(map(min, zip(*toindices(patch))))
+    return tuple(map(min, zip(*toindices(patch))))
 
 
 def urcorner(
     patch: Patch
 ) -> IntegerIterable:
     """ index of upper right corner """
-    return Tuple(map(lambda ix: {0: min, 1: max}[ix[0]](ix[1]), enumerate(zip(*toindices(patch)))))
+    return tuple(map(lambda ix: {0: min, 1: max}[ix[0]](ix[1]), enumerate(zip(*toindices(patch)))))
 
 
 def llcorner(
     patch: Patch
 ) -> IntegerIterable:
     """ index of lower left corner """
-    return Tuple(map(lambda ix: {0: max, 1: min}[ix[0]](ix[1]), enumerate(zip(*toindices(patch)))))
+    return tuple(map(lambda ix: {0: max, 1: min}[ix[0]](ix[1]), enumerate(zip(*toindices(patch)))))
 
 
 def lrcorner(
     patch: Patch
 ) -> IntegerIterable:
     """ index of lower right corner """
-    return Tuple(map(max, zip(*toindices(patch))))
+    return tuple(map(max, zip(*toindices(patch))))
 
 
 def crop(
@@ -755,7 +755,7 @@ def crop(
     dims: IntegerIterable
 ) -> Grid:
     """ subgrid specified by start and dimension """
-    return Tuple(r[start[1]:start[1]+dims[1]] for r in grid[start[0]:start[0]+dims[0]])
+    return tuple(r[start[1]:start[1]+dims[1]] for r in grid[start[0]:start[0]+dims[0]])
 
 
 def toindices(
@@ -971,7 +971,7 @@ def centerofmass(
     patch: Patch
 ) -> IntegerIterable:
     """ center of mass """
-    return Tuple(map(lambda x: sum(x) // len(patch), zip(*toindices(patch))))
+    return tuple(map(lambda x: sum(x) // len(patch), zip(*toindices(patch))))
 
 
 def palette(
@@ -1017,21 +1017,21 @@ def rot90(
     grid: Grid
 ) -> Grid:
     """ quarter clockwise rotation """
-    return Tuple(row for row in zip(*grid[::-1]))
+    return tuple(row for row in zip(*grid[::-1]))
 
 
 def rot180(
     grid: Grid
 ) -> Grid:
     """ half rotation """
-    return Tuple(Tuple(row[::-1]) for row in grid[::-1])
+    return tuple(tuple(row[::-1]) for row in grid[::-1])
 
 
 def rot270(
     grid: Grid
 ) -> Grid:
     """ quarter anticlockwise rotation """
-    return Tuple(Tuple(row[::-1]) for row in zip(*grid[::-1]))[::-1]
+    return tuple(tuple(row[::-1]) for row in zip(*grid[::-1]))[::-1]
 
 
 def hmirror(
@@ -1051,7 +1051,7 @@ def vmirror(
 ) -> Piece:
     """ mirroring along vertical """
     if isinstance(piece, Iterable):
-        return Tuple(row[::-1] for row in piece)
+        return tuple(row[::-1] for row in piece)
     d = ulcorner(piece)[1] + lrcorner(piece)[1]
     if isinstance(next(iter(piece))[1], Iterable):
         return frozenset((v, (i, d - j)) for v, (i, j) in piece)
@@ -1063,7 +1063,7 @@ def dmirror(
 ) -> Piece:
     """ mirroring along diagonal """
     if isinstance(piece, Iterable):
-        return Tuple(zip(*piece))
+        return tuple(zip(*piece))
     a, b = ulcorner(piece)
     if isinstance(next(iter(piece))[1], Iterable):
         return frozenset((v, (j - b + a, i - a + b)) for v, (i, j) in piece)
@@ -1075,7 +1075,7 @@ def cmirror(
 ) -> Piece:
     """ mirroring along counterdiagonal """
     if isinstance(piece, Iterable):
-        return Tuple(zip(*(r[::-1] for r in piece[::-1])))
+        return tuple(zip(*(r[::-1] for r in piece[::-1])))
     return vmirror(dmirror(vmirror(piece)))
 
 
@@ -1090,7 +1090,7 @@ def fill(
     for i, j in toindices(patch):
         if 0 <= i < h and 0 <= j < w:
             grid_filled[i][j] = value
-    return Tuple(Tuple(row) for row in grid_filled)
+    return tuple(tuple(row) for row in grid_filled)
 
 
 def paint(
@@ -1103,7 +1103,7 @@ def paint(
     for value, (i, j) in obj:
         if 0 <= i < h and 0 <= j < w:
             grid_painted[i][j] = value
-    return Tuple(Tuple(row) for row in grid_painted)
+    return tuple(tuple(row) for row in grid_painted)
 
 
 def underfill(
@@ -1119,7 +1119,7 @@ def underfill(
         if 0 <= i < h and 0 <= j < w:
             if grid_filled[i][j] == bg:
                 grid_filled[i][j] = value
-    return Tuple(Tuple(row) for row in grid_filled)
+    return tuple(tuple(row) for row in grid_filled)
 
 
 def underpaint(
@@ -1134,7 +1134,7 @@ def underpaint(
         if 0 <= i < h and 0 <= j < w:
             if grid_painted[i][j] == bg:
                 grid_painted[i][j] = value
-    return Tuple(Tuple(row) for row in grid_painted)
+    return tuple(tuple(row) for row in grid_painted)
 
 
 def hupscale(
@@ -1142,11 +1142,11 @@ def hupscale(
     factor: Integer
 ) -> Grid:
     """ upscale grid horizontally """
-    upscaled_grid = Tuple()
+    upscaled_grid = tuple()
     for row in grid:
-        upscaled_row = Tuple()
+        upscaled_row = tuple()
         for value in row:
-            upscaled_row = upscaled_row + Tuple(value for num in range(factor))
+            upscaled_row = upscaled_row + tuple(value for num in range(factor))
         upscaled_grid = upscaled_grid + (upscaled_row,)
     return upscaled_grid
 
@@ -1156,9 +1156,9 @@ def vupscale(
     factor: Integer
 ) -> Grid:
     """ upscale grid vertically """
-    upscaled_grid = Tuple()
+    upscaled_grid = tuple()
     for row in grid:
-        upscaled_grid = upscaled_grid + Tuple(row for num in range(factor))
+        upscaled_grid = upscaled_grid + tuple(row for num in range(factor))
     return upscaled_grid
 
 
@@ -1168,12 +1168,12 @@ def upscale(
 ) -> Element:
     """ upscale object or grid """
     if isinstance(element, Iterable):
-        upscaled_grid = Tuple()
+        upscaled_grid = tuple()
         for row in element:
-            upscaled_row = Tuple()
+            upscaled_row = tuple()
             for value in row:
-                upscaled_row = upscaled_row + Tuple(value for num in range(factor))
-            upscaled_grid = upscaled_grid + Tuple(upscaled_row for num in range(factor))
+                upscaled_row = upscaled_row + tuple(value for num in range(factor))
+            upscaled_grid = upscaled_grid + tuple(upscaled_row for num in range(factor))
         return upscaled_grid
     else:
         if len(element) == 0:
@@ -1195,15 +1195,15 @@ def downscale(
 ) -> Grid:
     """ downscale grid """
     h, w = len(grid), len(grid[0])
-    downscaled_grid = Tuple()
+    downscaled_grid = tuple()
     for i in range(h):
-        downscaled_row = Tuple()
+        downscaled_row = tuple()
         for j in range(w):
             if j % factor == 0:
                 downscaled_row = downscaled_row + (grid[i][j],)
         downscaled_grid = downscaled_grid + (downscaled_row, )
     h = len(downscaled_grid)
-    downscaled_grid2 = Tuple()
+    downscaled_grid2 = tuple()
     for i in range(h):
         if i % factor == 0:
             downscaled_grid2 = downscaled_grid2 + (downscaled_grid[i],)
@@ -1215,7 +1215,7 @@ def hconcat(
     b: Grid
 ) -> Grid:
     """ concatenate two grids horizontally """
-    return Tuple(i + j for i, j in zip(a, b))
+    return tuple(i + j for i, j in zip(a, b))
 
 
 def vconcat(
@@ -1241,7 +1241,7 @@ def hsplit(
     """ split grid horizontally """
     h, w = len(grid), len(grid[0]) // n
     offset = len(grid[0]) % n != 0
-    return Tuple(crop(grid, (0, w * i + i * offset), (h, w)) for i in range(n))
+    return tuple(crop(grid, (0, w * i + i * offset), (h, w)) for i in range(n))
 
 
 def vsplit(
@@ -1251,7 +1251,7 @@ def vsplit(
     """ split grid vertically """
     h, w = len(grid) // n, len(grid[0])
     offset = len(grid) % n != 0
-    return Tuple(crop(grid, (h * i + i * offset, 0), (h, w)) for i in range(n))
+    return tuple(crop(grid, (h * i + i * offset, 0), (h, w)) for i in range(n))
 
 
 def cellwise(
@@ -1261,9 +1261,9 @@ def cellwise(
 ) -> Grid:
     """ cellwise match of two grids """
     h, w = len(a), len(a[0])
-    resulting_grid = Tuple()
+    resulting_grid = tuple()
     for i in range(h):
-        row = Tuple()
+        row = tuple()
         for j in range(w):
             a_value = a[i][j]
             value = a_value if a_value == b[i][j] else fallback
@@ -1278,7 +1278,7 @@ def replace(
     replacer: Integer
 ) -> Grid:
     """ color substitution """
-    return Tuple(Tuple(replacer if v == replacee else v for v in r) for r in grid)
+    return tuple(tuple(replacer if v == replacee else v for v in r) for r in grid)
 
 
 def switch(
@@ -1287,7 +1287,7 @@ def switch(
     b: Integer
 ) -> Grid:
     """ color switching """
-    return Tuple(Tuple(v if (v != a and v != b) else {a: b, b: a}[v] for v in r) for r in grid)
+    return tuple(tuple(v if (v != a and v != b) else {a: b, b: a}[v] for v in r) for r in grid)
 
 
 def center(
@@ -1331,7 +1331,7 @@ def canvas(
     dimensions: IntegerIterable
 ) -> Grid:
     """ grid construction """
-    return Tuple(Tuple(value for j in range(dimensions[1])) for i in range(dimensions[0]))
+    return tuple(tuple(value for j in range(dimensions[1])) for i in range(dimensions[0]))
 
 
 def corners(
@@ -1375,7 +1375,7 @@ def trim(
     grid: Grid
 ) -> Grid:
     """ trim border of grid """
-    return Tuple(r[1:-1] for r in grid[1:-1])
+    return tuple(r[1:-1] for r in grid[1:-1])
 
 
 def move(
@@ -1552,8 +1552,8 @@ def frontiers(
 ) -> Objects:
     """ set of frontiers """
     h, w = len(grid), len(grid[0])
-    row_indices = Tuple(i for i, r in enumerate(grid) if len(set(r)) == 1)
-    column_indices = Tuple(j for j, c in enumerate(dmirror(grid)) if len(set(c)) == 1)
+    row_indices = tuple(i for i, r in enumerate(grid) if len(set(r)) == 1)
+    column_indices = tuple(j for j, c in enumerate(dmirror(grid)) if len(set(c)) == 1)
     hfrontiers = frozenset({frozenset({(grid[i][j], (i, j)) for j in range(w)}) for i in row_indices})
     vfrontiers = frozenset({frozenset({(grid[i][j], (i, j)) for i in range(h)}) for j in column_indices})
     return hfrontiers | vfrontiers
@@ -1563,9 +1563,9 @@ def compress(
     grid: Grid
 ) -> Grid:
     """ removes frontiers from grid """
-    ri = Tuple(i for i, r in enumerate(grid) if len(set(r)) == 1)
-    ci = Tuple(j for j, c in enumerate(dmirror(grid)) if len(set(c)) == 1)
-    return Tuple(Tuple(v for j, v in enumerate(r) if j not in ci) for i, r in enumerate(grid) if i not in ri)
+    ri = tuple(i for i, r in enumerate(grid) if len(set(r)) == 1)
+    ci = tuple(j for j, c in enumerate(dmirror(grid)) if len(set(c)) == 1)
+    return tuple(tuple(v for j, v in enumerate(r) if j not in ci) for i, r in enumerate(grid) if i not in ri)
 
 
 def hperiod(

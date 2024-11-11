@@ -492,11 +492,6 @@ You are tasked with solving pattern recognition puzzles by analyzing input-outpu
 3. ALWAYS return values instead of printing them
 4. ALWAYS write code that is self-contained (no reusing variables between executions)
 
-## Data Access
-- Training input: data["train"][idx]["input"]
-- Training output: data["train"][idx]["output"]
-- Test input: data["test"][idx]["input"] 
-
 ## Code Format Requirements
 
 1. DSL Code Blocks
@@ -571,7 +566,14 @@ result = dsl_code()
 - Always validate your attempt to every single training example, if it doesn't pass all test cases then you DO NOT have a solution and do not return <SOLUTION> yet.
 - Remember to never hardcode numbers, colors or grid values. Always find generic patterns.
 - When you write code, your dsl_code function must return everything you need. Don't print valuable information (return it instead).
+- Inside `dsl_code` never return functions. Always return valuable information (that information will be passed back to you in later conversations).
 
+### Data Access
+- Training input: data["train"][idx]["input"]
+- Training output: data["train"][idx]["output"]
+- Test input: data["test"][idx]["input"]
+- Grids will never be passed into your dsl_code function. You must use one of these global data variables already defined.
+- When you are returning a solution provide a grid for each test input for each index in a single 3D array (2D grid for each index).
 
 Here are the grids:
 <PUZZLE_DATA>
