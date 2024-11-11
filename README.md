@@ -1,4 +1,4 @@
-# arc-agi-attempts
+# arc-agi-attempts (wip)
 
 In this repository I have code and brief explanations of my attempts at the ARC-AGI (2024) challenges.
 
